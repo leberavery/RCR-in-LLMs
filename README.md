@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="" alt="Project logo"></a>
+ <img width=400px height=400px src="https://github.com/leberavery/RCR-in-LLMs/blob/main/media/project_logo.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">Evaluating the Robotic Control Reasoning Potential of Locally-Hosted LLMs</h3>
@@ -15,8 +15,6 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
