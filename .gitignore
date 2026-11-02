@@ -1,5 +1,2 @@
 webots/controllers/main/__pycache__/config.cpython-312.pyc webots/controllers/main/__pycache__/constants.cpython-312.pyc webots/controllers/main/__pycache__/initialize_run.cpython-312.pyc webots/controllers/main/__pycache__/llm.cpython-312.pyc webots/controllers/main/__pycache__/main.cpython-312.pyc webots/controllers/main/__pycache__/prompt_llm.cpython-312.pyc webots/controllers/main/__pycache__/robot_movements.cpython-312.pyc webots/controllers/main/__pycache__/robot_setup.cpython-312.pyc webots/controllers/main/__pycache__/robot_setup.cpython-314.pyc webots/controllers/main/__pycache__/run.cpython-312.pyc webots/controllers/main/__pycache__/run.cpython-314.pyc webots/controllers/main/__pycache__/run_failed.cpython-312.pyc webots/controllers/main/__pycache__/sensor_data.cpython-312.pyc
-webost/mazes/.maze1_10x10.wbproj
-webots/mazes/.maze1_10x10.wbproj
-webots/mazes/.maze1_10x10.wbproj
-webots/mazes/.maze1_10x10.wbproj
+.maze1_10x10.wbproj
