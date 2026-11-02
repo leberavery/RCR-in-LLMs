@@ -1,4 +1,13 @@
-import constants
+# ------------------------
+# Code Author: Avery Leber
+# Purpose: robot_movements.py executes the physical movement advised by the LLM.
+#          Available actions include:
+#           1. Forward
+#           2. Backward (not advertised)
+#           3. Left
+#           4. Right
+# ------------------------
+import config
 import robot_setup
 import sensor_data
 
@@ -10,11 +19,11 @@ import math
 def forward():      # Move robot forward by one tile
     robot_setup.supervisor.step(robot_setup.timestep)
     print("Moving Forward...")
-    target = constants.TILE / constants.WHEEL_RADIUS
+    target = config.TILE / config.WHEEL_RADIUS
     start = robot_setup.left_sensor.getValue()
 
-    robot_setup.left_motor.setVelocity(constants.MAX_SPEED)
-    robot_setup.right_motor.setVelocity(constants.MAX_SPEED)
+    robot_setup.left_motor.setVelocity(config.MAX_SPEED)
+    robot_setup.right_motor.setVelocity(config.MAX_SPEED)
 
     while robot_setup.supervisor.step(robot_setup.timestep) != -1:
         if abs(robot_setup.left_sensor.getValue() - start) >= target:
@@ -25,16 +34,16 @@ def forward():      # Move robot forward by one tile
 
     robot_setup.supervisor.step(robot_setup.timestep)
 
-    return sensor_data.collisionDetection()
+    return sensor_data.collision_detection()
 
 def backward():    # Move robot backward by one tile
     robot_setup.supervisor.step(robot_setup.timestep)
     print("Moving Backward...")
-    target = constants.TILE / constants.WHEEL_RADIUS
+    target = config.TILE / config.WHEEL_RADIUS
     start = robot_setup.left_sensor.getValue()
 
-    robot_setup.left_motor.setVelocity(-constants.MAX_SPEED)
-    robot_setup.right_motor.setVelocity(-constants.MAX_SPEED)
+    robot_setup.left_motor.setVelocity(-config.MAX_SPEED)
+    robot_setup.right_motor.setVelocity(-config.MAX_SPEED)
 
     while robot_setup.supervisor.step(robot_setup.timestep) != -1:
         if abs(robot_setup.left_sensor.getValue() - start) >= target:
@@ -45,7 +54,7 @@ def backward():    # Move robot backward by one tile
 
     robot_setup.supervisor.step(robot_setup.timestep)
 
-    return sensor_data.collisionDetection()
+    return sensor_data.collision_detection()
 
 def turnRight():    # Turn robot in place 90 degrees
     """
@@ -99,7 +108,7 @@ def turnRight():    # Turn robot in place 90 degrees
         calculated_speed = error_rad * kp
 
         # Ensure speed does not exceed MAX or drop below MIN
-        speed = max(min_speed, min (calculated_speed, constants.ROTATION_SPEED))
+        speed = max(min_speed, min (calculated_speed, config.ROTATION_SPEED))
 
         # Turn
         robot_setup.left_motor.setVelocity(speed)
@@ -116,7 +125,7 @@ def turnRight():    # Turn robot in place 90 degrees
     # Apply stop and update sensors
     robot_setup.supervisor.step(robot_setup.timestep)
 
-    return sensor_data.collisionDetection()
+    return sensor_data.collision_detection()
 
 def turnLeft():    # Turn robot in place 90 degrees
     """
@@ -169,7 +178,7 @@ def turnLeft():    # Turn robot in place 90 degrees
         calculated_speed = error_rad * kp
 
         # Ensure speed does not exceed MAX or drop below MIN
-        speed = max(min_speed, min (calculated_speed, constants.ROTATION_SPEED))
+        speed = max(min_speed, min (calculated_speed, config.ROTATION_SPEED))
 
         # Turn
         robot_setup.left_motor.setVelocity(-speed)
@@ -186,4 +195,4 @@ def turnLeft():    # Turn robot in place 90 degrees
     # Apply stop and update sensors
     robot_setup.supervisor.step(robot_setup.timestep)
 
-    return sensor_data.collisionDetection()
+    return sensor_data.collision_detection()

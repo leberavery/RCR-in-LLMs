@@ -1,3 +1,8 @@
+# ------------------------
+# Code Author: Avery Leber
+# Purpose: robot_setup.py initializes the sensors, motors, and other components of the robot
+# ------------------------
+
 from controller import Supervisor, DistanceSensor
 
 supervisor = Supervisor()

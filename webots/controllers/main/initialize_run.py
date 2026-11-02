@@ -1,4 +1,9 @@
+# ------------------------
+# Code Author: Avery Leber
+# Purpose: initialize_run.py initializes all variables used by the supervisor controller.
+# ------------------------
 import robot_setup
+import sensor_data
 
 import time
 
@@ -18,15 +23,15 @@ def initializeRun():
 
     startTime = time.time()
     current_pos = [0, 0]
-    current_heading = "NORTH"
+    current_heading = sensor_data.get_cardinal_heading()       # TODO: Calculate heading using IMU rather than provide it initially
     visited_coords = []
     actionSequence = []
     step_data = []
     path_ahead = ()
     history = []
     history_string = ""
-    sensor_warning = ""
     action_history = []
+    actionSequence = []
 
     robot_setup.left_motor.setPosition(float('inf'))
     robot_setup.right_motor.setPosition(float('inf'))

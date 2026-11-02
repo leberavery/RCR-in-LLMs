@@ -1,5 +1,14 @@
+# ------------------------
+# Code Author: Avery Leber
+# Purpose: llm.py handles interactions with the LLM.
+#           1. prompt_llm() feeds the LLM contextualized sensor data and asks for the next best step
+#           2. read_llm_output() reads the step provided by the LLM and calls for the movement to be executed.
+# ------------------------
+
+import robot_setup
 import initialize_run
-import run
+import sensor_data
+import robot_movements
 
 import ollama
 from ollama import chat
@@ -7,7 +16,7 @@ from ollama import ChatResponse
 import time
 import re
 
-def getNextStep(status, goal_status, neighbor_info):
+def prompt_llm(status, goal_status, neighbor_info):
     #global history, current_pos, current_heading, visited_coords, prompt_time
     global prompt_time
     # Start timer for LLM response
@@ -35,7 +44,7 @@ def getNextStep(status, goal_status, neighbor_info):
             goal_status=goal_status, 
             pos=tuple(initialize_run.current_pos),
             current_heading=initialize_run.current_heading,
-            sensor_warning=initialize_run.sensor_warning,
+            sensor_warning=sensor_data.get_sensor_warning(),
             neighbor_status=neighbor_info, 
             history=history_str
         )
@@ -44,7 +53,7 @@ def getNextStep(status, goal_status, neighbor_info):
         return None
 
     # 4. Define the User message
-    user_content = f"Current Sensors: {initialize_run.sensor_warning}. Goal: {goal_status}. History: {history_str}. Decision?"
+    user_content = f"Current Sensors: {sensor_data.get_sensor_warning()}. Goal: {goal_status}. History: {history_str}. Decision?"
 
     # 5. Call the LLM
     # Ollam Qwen 2.5:
@@ -84,3 +93,36 @@ def getNextStep(status, goal_status, neighbor_info):
     except Exception as e:
         print(f"Ollama Error: {e}")
         return None
+
+def read_llm_output(action):
+    if action:
+        print(f"LLM Decided Action: {action}")
+        
+        if action == "F":
+            robot_movements.forward()
+        elif action == "B":
+            robot_movements.backward()
+        elif action == "L":
+            robot_movements.turnLeft()
+        elif action == "R":
+            robot_movements.turnRight()
+        new_loc = sensor_data.update_coordinates(action)
+
+        # TODO: Add data to step_data: Move outside of for loop?
+        initialize_run.step_data.append(f"[{action}")
+        initialize_run.step_data.append(prompt_time)
+        initialize_run.step_data.append(new_loc)
+        initialize_run.step_data.append(f"{sensor_data.get_path_ahead()}]")
+        
+
+        initialize_run.actionSequence.append(initialize_run.step_data)
+
+        facing_coord = sensor_data.get_forward_coordinate(new_loc, initialize_run.current_heading)
+        # print(f"Robot now at: {new_loc} | Facing Tile: {facing_coord} ({current_heading})")
+        # print(f"Neighbor Info: {neighbor_info}")
+            
+    else:
+        # Failsafe: stop if the LLM output is garbled
+        robot_setup.left_motor.setVelocity(0.0)
+        robot_setup.right_motor.setVelocity(0.0)
+        print("Waiting for valid LLM command...")
