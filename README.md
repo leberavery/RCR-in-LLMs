@@ -72,12 +72,13 @@ Step 3. Upload Controller
 3. Delete main.py from the controller folder
 ```
 
-Step 4. Customize Parameters
+Step 4. Customize Run Parameters
 ```
-1. main.py calls run.py and accepts two paramters:
-  a. collect_data: Boolean - True enables data collection
-    i. Collected data is sent to a CSV file, found in run.py
-  b. runNum: Int - Number of times the program will run, where finding the goal, timing out, or getting stuck denotes one run.
+1. Configure the following variables to your liking in config.py:
+  a. COLLECT_DATA: Boolean - True enables data collection
+    i. Collected data is sent to a user-specified CSV file: FILE_NAME
+  b. RUN_NUM: Int - Number of times the program will run, where finding the goal, timing out, or getting stuck denotes one run.
+  c. STEP_LIMIT: Int - Number of steps the LLM can take before the process automatically ends 
 ```
 
 Step 5. Run
