@@ -92,7 +92,7 @@ If you are interested in learning more about how the system works, ["Evaluating 
 
 ## Built Using <a name = "built_using"></a>
 - [Webots](https://cyberbotics.com/) -  Physics-based Simulation Software
-- [Ollama](https://ollama.com/) - API Access to Local LLMs
+- [Ollama](https://ollama.com/) - Python SDK Access to Ollama for Local LLMs
 - [Python](https://www.python.org/) - Supervisor Controller
 
 ## Authors <a name = "authors"></a>
